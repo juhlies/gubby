@@ -10,20 +10,26 @@ struct Arguments {
 }
 #[derive(Subcommand)]
 enum Commands {
-    /// installs the gubby binary
-    SelfInstall {},
+    /// checks packages for updates
+    Check {},
 
-    /// installs the latest version of gubby
-    SelfUpgrade {},
-
-    /// lists all installed packages
-    List {},
+    /// opens gubby config file
+    Config {},
 
     /// installs a package
     Install {
         #[arg(short)]
         url: String
     },
+
+    /// lists all installed packages
+    List {},
+
+    /// installs the gubby binary
+    SelfInstall {},
+
+    /// installs the latest version of gubby
+    SelfUpgrade {},
 
     /// uninstalls a package
     Uninstall {
@@ -36,9 +42,6 @@ enum Commands {
         #[arg(short)]
         url: String
     },
-
-    /// checks packages for updates
-    Check {}
 }
 
 fn main() {
