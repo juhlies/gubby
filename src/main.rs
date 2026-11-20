@@ -47,12 +47,16 @@ enum Commands {
 fn main() {
     let args = Arguments::parse();
     match &args.command {
-        Some(Commands::SelfInstall {  }) => {
-            println!("gubby installed yay")
+        Some(Commands::Check {  }) => {
+            println!("checking packages for updates")
         }
 
-        Some(Commands::SelfUpgrade {  }) => {
-            println!("gubby updated yay")
+        Some(Commands::Config {  }) => {
+            println!("opening config file")
+        }
+        
+        Some(Commands::Install { url }) => {
+            println!("installing: {}", url)
         }
 
         Some(Commands::List {  }) => {
@@ -61,16 +65,16 @@ fn main() {
             println!("{}", config_file)
         }
 
-        Some(Commands::Install { url }) => {
-            println!("installing: {}", url)
+        Some(Commands::SelfInstall {  }) => {
+            println!("gubby installed yay")
+        }
+
+        Some(Commands::SelfUpgrade {  }) => {
+            println!("gubby updated yay")
         }
 
         Some(Commands::Uninstall { url }) => {
             println!("uninstalling: {}", url)
-        }
-
-        Some(Commands::Check {  }) => {
-            println!("checking packages for updates")
         }
 
         Some(Commands::Update { url }) => {
