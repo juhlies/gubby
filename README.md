@@ -1,5 +1,8 @@
 # gubby 🐰
-le epic github "package manager"
+le epic github "package manager" because i don't like aftman and pesde doesn't support anything
+
+## installation
+later :p
 
 ## usage
 **gubby.exe** [COMMAND]
