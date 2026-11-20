@@ -1,0 +1,2 @@
+[packages]
+gubby = {version = "0.1.0", url = "https://github.com/juhlies/gubby.git"}

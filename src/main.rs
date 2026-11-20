@@ -1,13 +1,14 @@
 use clap::{Parser, Subcommand};
-use dirs;
-use std::fs;
+mod commands;
+mod paths;
 
 #[derive(Parser)]
 #[command(version, arg_required_else_help = true)]
 struct Arguments {
     #[command(subcommand)]
-    command: Option<Commands>
+    command: Option<Commands>,
 }
+
 #[derive(Subcommand)]
 enum Commands {
     /// checks packages for updates
@@ -18,8 +19,7 @@ enum Commands {
 
     /// installs a package
     Install {
-        #[arg(short)]
-        url: String
+        url: String,
     },
 
     /// lists all installed packages
@@ -28,59 +28,36 @@ enum Commands {
     /// installs the gubby binary
     SelfInstall {},
 
+    /// uninstalls gubby
+    SelfUninstall {},
+
     /// installs the latest version of gubby
     SelfUpgrade {},
 
     /// uninstalls a package
     Uninstall {
-        #[arg(short)]
-        url: String
+        url: String,
     },
 
     /// updates all installed packages
     Update {
-        #[arg(short)]
-        url: String
+        url: Option<String>,
     },
 }
 
 fn main() {
     let args = Arguments::parse();
+
     match &args.command {
-        Some(Commands::Check {  }) => {
-            println!("checking packages for updates")
-        }
-
-        Some(Commands::Config {  }) => {
-            println!("opening config file")
-        }
-        
-        Some(Commands::Install { url }) => {
-            println!("installing: {}", url)
-        }
-
-        Some(Commands::List {  }) => {
-            let user_folder = dirs::home_dir().expect("could not find user directory.");
-            let config_file = fs::read_to_string(user_folder.join(".gubby").join("gubby.toml")).expect("could not read config file");
-            println!("{}", config_file)
-        }
-
-        Some(Commands::SelfInstall {  }) => {
-            println!("gubby installed yay")
-        }
-
-        Some(Commands::SelfUpgrade {  }) => {
-            println!("gubby updated yay")
-        }
-
-        Some(Commands::Uninstall { url }) => {
-            println!("uninstalling: {}", url)
-        }
-
-        Some(Commands::Update { url }) => {
-            println!("updating: {}", url)
-        }
-
+        Some(Commands::Check {}) => commands::check::run(),
+        Some(Commands::Config {}) => commands::config::run(),
+        Some(Commands::Install { url }) => commands::install::run(url),
+        Some(Commands::List {}) => commands::list::run(),
+        Some(Commands::SelfInstall {}) => commands::self_install::run(),
+        Some(Commands::SelfUninstall {}) => commands::self_uninstall::run(),
+        Some(Commands::SelfUpgrade {}) => commands::self_upgrade::run(),
+        Some(Commands::Uninstall { url }) => commands::uninstall::run(url),
+        Some(Commands::Update { url }) => commands::update::run(url.as_deref()),
         None => {}
     }
 }
