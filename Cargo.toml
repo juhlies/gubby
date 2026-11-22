@@ -1,0 +1,18 @@
+[package]
+name = "gubby"
+version = "1.0.0"
+edition = "2024"
+
+[dependencies]
+reqwest = { version = "0.13.5", features = ["json", "stream", "rustls"] }
+clap = { version = "4.6.9", features = ["derive"] }
+tokio = { version = "1.54.1", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+self-replace = { version = "1.5.1" }
+toml_edit = { version = "0.25.19" }
+indicatif = { version =  "0.18.6" }
+anyhow = { version = "1.0.104" }
+archive = { version = "1.0.0" }
+semver = { version = "1.0.28" }
+winreg = { version = "0.56" }
+dirs = { version = "7.0.0" }
